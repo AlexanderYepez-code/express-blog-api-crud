@@ -1,4 +1,4 @@
-import  gameArray  from "../post"
+import  gameArray  from "../post.js"
 
 function index(req, res) {
     const risposta = {
@@ -23,11 +23,40 @@ function show(req, res) {
 }
 
 function store(req, res) {
-    res.send("creo nuovo gioco")
+    const dati = req.body;
+    const newId = gameArray[gameArray.length - 1].id +1;
+    console.log(dati)
+    const newGame = {
+        id: newId,
+        titolo: dati.titolo,
+        contenuto: dati.contenuto,
+        immagine: dati.immagine,
+        tags: dati.tags,
+       
+    };
+
+    res.status(201);
+
+    res.json(newGame)
 }
 
 function update(req, res) {
     const id = parseInt(req.params.id);
+
+    const dati = req.body;
+    console.log(dati);
+
+    const gioco = gameArray.find((game) => game.id === id);
+    if(gioco === undefined){
+        res.status(404);
+        return res.json({
+            message: "Not found",
+        });
+    }
+
+    gioco.titolo= dati.titolo;
+    gioco.contenuto= dati.contenuto;
+    gioco.tags= dati.tags;
     res.send("aggiorna gioco n." + id)
 }
 
@@ -57,7 +86,7 @@ const controller = {
     store,
     update,
     modify,
-    destroy
+    destroy,
 
-}
-export default controller
+};
+export default controller;

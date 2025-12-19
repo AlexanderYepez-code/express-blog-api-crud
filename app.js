@@ -9,6 +9,9 @@ app.get("/", (req, resp) =>{
     resp.json(gameArray)
 });
 
+app.use(express.static("public"));
+app.use(express.json());
+
 app.use("/games", gamesRouter);
 
 app.listen(port, function(){
