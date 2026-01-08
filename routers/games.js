@@ -1,7 +1,9 @@
-import express from "express"
-import gameController from "../controllers/gameController.js"
+import express from "express";
+import gameController from "../controllers/gameController.js";
+
 
 const router = express.Router();
+
 
 //INDEX
 
@@ -19,5 +21,5 @@ router.patch("/:id", gameController.modify)
 //DESTROY
 router.delete("/:id", gameController.destroy)
 
-export default router; 
+export default router;
 

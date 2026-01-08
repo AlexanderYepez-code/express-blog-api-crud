@@ -1,16 +1,16 @@
-import  gameArray  from "../post.js"
+import  posts  from "../post.js"
 
 function index(req, res) {
     const risposta = {
-        count: gameArray.length,
-        results: gameArray
+        count: posts.length,
+        results: posts
     }
     res.json(risposta)
 };
 
 function show(req, res) {
     const id = parseInt(req.params.id);
-    const game = gameArray.find(game => game.id === id);
+    const game = posts.find(game => game.id === id);
 
     if (game === undefined) {
         res.status(404);
@@ -24,7 +24,7 @@ function show(req, res) {
 
 function store(req, res) {
     const dati = req.body;
-    const newId = gameArray[gameArray.length - 1].id +1;
+    const newId = posts[posts.length - 1].id +1;
     console.log(dati)
     const newGame = {
         id: newId,
@@ -34,6 +34,7 @@ function store(req, res) {
         tags: dati.tags,
        
     };
+    posts.push(newGame)
 
     res.status(201);
 
@@ -46,7 +47,7 @@ function update(req, res) {
     const dati = req.body;
     console.log(dati);
 
-    const gioco = gameArray.find((game) => game.id === id);
+    const gioco = posts.find((game) => game.id === id);
     if(gioco === undefined){
         res.status(404);
         return res.json({
@@ -67,7 +68,7 @@ function modify(req, res) {
 
 function destroy(req, res) {
     const id = parseInt(req.params.id);
-    const gameIndex = gameArray.findIndex((game) => game.id === id)
+    const gameIndex = posts.findIndex((game) => game.id === id)
 
     if (gameIndex === -1) {
         res.status(404)
@@ -75,7 +76,7 @@ function destroy(req, res) {
             message: "gioco non disponibile"
         })
     }
-    gameArray.splice(gameIndex, 1)
+    posts.splice(gameIndex, 1)
     res.sendStatus(204)
 
 }
