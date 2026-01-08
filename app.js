@@ -12,9 +12,10 @@ app.get("/", (req, resp) =>{
 
 app.use(express.static("public"));
 app.use(express.json());
-app.use(verificaPercorso);
+
 
 app.use("/games", gamesRouter);
+app.use(verificaPercorso);
 
 app.listen(port, function(){
     console.log("Il server sta ascoltando sulla porta " + port)
